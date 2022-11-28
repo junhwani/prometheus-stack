@@ -1,0 +1,17 @@
+{{- if .Values.node-exporter.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: node-exporter
+  name: node-exporter
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+    - name: http
+      port: 9100
+      protocol: TCP
+  type: {{ .Values.node-exporter.service.type }}
+  selector:
+    app: node-exporter
+{{- end}}

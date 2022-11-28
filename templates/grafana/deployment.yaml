@@ -1,0 +1,60 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.}}
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      {{- if .Values.grafana.tolerations }}
+      tolerations:
+        {{ toYaml .Values.grafana.tolerations | indent 8 }}
+      {{- end }}
+      replicas: {{ .Values.grafana.replicas }}
+      containers:
+        - env:
+            {{- range $key, $value := .Values.grafana.env}}
+            - name: "{{ tpl $key $}}"
+              value: "{{ tpl (print $value) $}}"
+            {{- end}}
+          image: "{{ .Values.grafana.image.name }}:{{ .Values.grafana.image.tag }}"
+          imagePullPolicy: {{ .Values.grafana.image.policy }}
+          name: grafana
+          ports:
+            - containerPort: 3000
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+          {{- with .Values.grafana.resources }}
+          resources:
+            {{- toYaml . | indent 12 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-storage
+      securityContext:
+        fsGroup: 472
+        supplementalGroups:
+          - 0
+      volumes:
+        {{- if .Values.grafana.persistence.enabled }}
+        - persistenceVolumeClaim:
+            claimName: grafana-pvc
+          name: grafana-storage
+        {{- else}}
+        - emptyDir: {}
+          name: grafana-storage
+        {{- end}}
+{{- end }}

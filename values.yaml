@@ -1,0 +1,124 @@
+namespace: observability
+
+#############################################
+# alertmanager
+#############################################
+alertmanager:
+  enabled: false
+
+  replicas: 2
+  tolerations: {}
+#  - key: operation
+#    operator: Exists
+#    effect: NoExecute
+  image:
+    registry: quay.io
+    name: prometheus/alertmanager
+    tag: v0.24.0
+    policy: IfNotPresent
+  resources: {}
+  persistence:
+    enabled: false
+    size: 10Gi
+    storageClassName: default
+
+  service:
+    type: NodePort
+
+#############################################
+# grafana
+#############################################
+grafana:
+  enabled: false
+
+  replicas: 1
+  tolerations: {}
+#  - key: operation
+#    operator: Exists
+#    effect: NoExecute
+  env:
+    GF_FEATURE_TOGGLES_ENABLE: ngalert
+  image:
+    name: grafana/grafana
+    tag: 8.5.14
+    policy: IfNotPresent
+  resources:
+    limits:
+      cpu: 200m
+      memory: 400Mi
+    requests:
+      cpu: 50m
+      memory: 250Mi
+  persistence:
+    enabled: false
+    size: 50Gi
+    storageClassName: default
+
+  service:
+    type: NodePort
+
+
+#############################################
+# kube-state-metrics
+#############################################
+kube-state-metrics:
+  enabled: true
+
+  image:
+    name: registry.k8s.io/kube-state-metrics/kube-state-metrics
+    tag: v2.6.0
+    policy: IfNotPresent
+
+#############################################
+# node-exporter
+#############################################
+node-exporter:
+  enabled: true
+
+  image:
+    name: prom/node-exporter
+    tag: v1.4.0
+    policy: IfNotPresent
+  tolerations:
+    - operator: Exists
+
+  service:
+    type: ClusterIP
+
+#############################################
+# prometheus
+#############################################
+prometheus:
+  enabled: true
+
+  replicas: 2
+  tolerations: {}
+  #  - key: operation
+  #    operator: Exists
+  #    effect: NoExecute
+  image:
+    name: prom/prometheus
+    tag: v2.37.1
+    policy: IfNotPresent
+  resources: {}
+#    limits:
+#      cpu: 200m
+#      memory: 400Mi
+#    requests:
+#      cpu: 50m
+#      memory: 250Mi
+  persistence:
+    enabled: false
+    size: 100Gi
+    storageClassName: default
+
+  service:
+    type: NodePort
+
+#############################################
+# pushgateway
+#############################################
+pushgateway:
+  enabled: false
+
+

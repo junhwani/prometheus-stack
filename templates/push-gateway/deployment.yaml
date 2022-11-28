@@ -1,0 +1,44 @@
+{{- if .Values.pushgateway.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pushgateway
+  name: pushgateway
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pushgateway
+  template:
+    metadata:
+      labels:
+        app: pushgateway
+    spec:
+      containers:
+        - image: prom/pushgateway
+          livenessProbe:
+            httpGet:
+              path: /#/status
+              port: 9091
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          name: pushgateway
+          ports:
+            - containerPort: 9091
+              name: metrics
+          readinessProbe:
+            httpGet:
+              path: /#/status
+              port: 9091
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+#          resources:
+#            limits:
+#              cpu: 50m
+#              memory: 100Mi
+#            requests:
+#              cpu: 50m
+#              memory: 100Mi
+{{- end }}

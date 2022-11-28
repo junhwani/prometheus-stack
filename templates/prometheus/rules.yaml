@@ -1,0 +1,11 @@
+{{- if .Values.prometheus.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-alert-rules
+  labels:
+    name: prometheus-alert-rules
+  namespace: {{ .Values.namespace }}
+data:
+  memory.rules: |-
+  {{- end}}

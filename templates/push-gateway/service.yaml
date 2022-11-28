@@ -1,0 +1,18 @@
+{{- if .Values.pushgateway.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pushgateway
+  name: pushgateway
+  namespace: {{ .Values.namespace }}
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 9091
+      targetPort: metrics
+  selector:
+    app: pushgateway
+#  type: ClusterIP
+{{- end }}

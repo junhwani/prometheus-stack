@@ -1,0 +1,16 @@
+{{- if ( and .Values.grafana.persistence.enabled .Values.grafana.enabled ) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.grafana.persistence.size | quote}}
+  {{- with .Values.grafana.persistence.storageClassName }}
+  storageClassName: {{ . }}
+  {{- end }}
+{{- end}}
