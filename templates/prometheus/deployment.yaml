@@ -24,7 +24,7 @@ spec:
           ports:
             - containerPort: 9090
           resources:
-            {{- toYaml .Values.prometheus.resources | indent 12 }}
+            {{- toYaml .Values.prometheus.resources | nindent 12 }}
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/
@@ -51,6 +51,6 @@ spec:
         {{- end }}
       {{- if .Values.prometheus.tolerations }}
       tolerations:
-        {{ toYaml .Values.prometheus.tolerations | indent 8 }}
+        {{- toYaml .Values.prometheus.tolerations | nindent 8 }}
       {{- end }}
 {{- end }}

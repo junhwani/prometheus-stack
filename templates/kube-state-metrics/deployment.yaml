@@ -57,6 +57,6 @@ spec:
       serviceAccountName: kube-state-metrics
       {{- if .Values.kubestatemetrics.tolerations }}
       tolerations:
-        {{ toYaml .Values.kubestatemetrics.tolerations | indent 8 }}
+        {{- toYaml .Values.kubestatemetrics.tolerations | nindent 8 }}
       {{- end }}
 {{- end}}
