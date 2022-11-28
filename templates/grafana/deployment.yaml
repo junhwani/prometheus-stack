@@ -37,10 +37,8 @@ spec:
             httpGet:
               path: /api/health
               port: http
-          {{- with .Values.grafana.resources }}
           resources:
-            {{- toYaml . | indent 12 }}
-          {{- end }}
+            {{- toYaml .Values.grafana.resources | indent 12 }}
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-storage

@@ -23,10 +23,8 @@ spec:
             - "--web.enable-lifecycle"
           ports:
             - containerPort: 9090
-          {{- with .Values.prometheus.resources }}
           resources:
-            {{- toYaml . | indent 12 }}
-          {{- end }}
+            {{- toYaml .Values.prometheus.resources | indent 12 }}
           volumeMounts:
             - name: prometheus-config-volume
               mountPath: /etc/prometheus/

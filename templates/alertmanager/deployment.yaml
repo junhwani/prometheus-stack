@@ -25,10 +25,8 @@ spec:
           ports:
             - name: alertmanager
               containerPort: 9093
-          {{- with .Values.grafana.resources }}
           resources:
-            {{- toYaml . | indent 12 }}
-          {{- end }}
+            {{- toYaml .Values.alertmanager.resources | indent 12 }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/alertmanager
