@@ -51,8 +51,8 @@ spec:
         - emptyDir: {}
           name: prometheus-storage-volume
         {{- end }}
-      {{- if .Values.global.tolerations }}
+      {{- if .Values.prometheus.tolerations }}
       tolerations:
-        {{ toYaml .Values.global.tolerations | indent 8 }}
+        {{ toYaml .Values.prometheus.tolerations | indent 8 }}
       {{- end }}
 {{- end }}

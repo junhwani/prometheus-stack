@@ -18,9 +18,9 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
     spec:
-      {{- if .Values.global.tolerations }}
+      {{- if .Values.nodeexporter.tolerations }}
       tolerations:
-        {{ toYaml .Values.global.tolerations | indent 8 }}
+        {{ toYaml .Values.nodeexporter.tolerations | indent 8 }}
       {{- end }}
       containers:
         - image: {{ .Values.nodeexporter.image.name }}:{{ .Values.nodeexporter.image.tag }}
