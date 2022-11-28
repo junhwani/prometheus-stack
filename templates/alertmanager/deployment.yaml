@@ -42,7 +42,7 @@ spec:
           configMap:
             name: alertmanager-templates
         {{- if .Values.alertmanager.persistence.enabled }}
-        - persistenceVolumeClaim:
+        - persistentVolumeClaim:
             claimName: alertmanager-pvc
           name: alertmanager
         {{- else }}

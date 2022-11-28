@@ -48,7 +48,7 @@ spec:
           - 0
       volumes:
         {{- if .Values.grafana.persistence.enabled }}
-        - persistenceVolumeClaim:
+        - persistentVolumeClaim:
             claimName: grafana-pvc
           name: grafana-storage
         {{- else}}

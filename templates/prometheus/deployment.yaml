@@ -42,7 +42,7 @@ spec:
             defaultMode: 420
             name: prometheus-alert-rules
         {{- if .Values.prometheus.persistence.enabled }}
-        - persistenceVolumeClaim:
+        - persistentVolumeClaim:
             claimName: prometheus-pvc
           name: prometheus-storage-volume
         {{- else }}
