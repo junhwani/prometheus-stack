@@ -1,4 +1,4 @@
-{{- if .Values.kube-state-metrics.enabled }}
+{{- if .Values.kubestatemetrics.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,8 +22,8 @@ spec:
     spec:
       automountServiceAccountToken: true
       containers:
-      - image: {{ .Values.kube-state-metrics.image.name }}:{{ .Values.kube-state-metrics.image.tag }}
-        imagePullPolicy: {{ .Values.kube-state-metrics.image.policy }}
+      - image: {{ .Values.kubestatemetrics.image.name }}:{{ .Values.kubestatemetrics.image.tag }}
+        imagePullPolicy: {{ .Values.kubestatemetrics.image.policy }}
         args:
         - --metric-labels-allowlist=pods=[*],services=[*]
         - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments

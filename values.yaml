@@ -61,7 +61,7 @@ grafana:
 #############################################
 # kube-state-metrics
 #############################################
-kube-state-metrics:
+kubestatemetrics:
   enabled: true
 
   image:
@@ -72,7 +72,7 @@ kube-state-metrics:
 #############################################
 # node-exporter
 #############################################
-node-exporter:
+nodeexporter:
   enabled: true
 
   image:

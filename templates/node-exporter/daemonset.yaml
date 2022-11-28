@@ -1,4 +1,4 @@
-{{- if .Values.node-exporter.enabled }}
+{{- if .Values.nodeexporter.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -23,8 +23,8 @@ spec:
         {{ toYaml .Values.global.tolerations | indent 8 }}
       {{- end }}
       containers:
-        - image: {{ .Values.node-exporter.image.name }}:{{ .Values.node-exporter.image.tag }}
-          imagePullPolicy: {{ .Values.node-exporter.image.policy }}
+        - image: {{ .Values.nodeexporter.image.name }}:{{ .Values.nodeexporter.image.tag }}
+          imagePullPolicy: {{ .Values.nodeexporter.image.policy }}
           name: node-exporter
           ports:
             - containerPort: 9100

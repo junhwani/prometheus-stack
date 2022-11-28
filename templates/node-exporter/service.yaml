@@ -1,4 +1,4 @@
-{{- if .Values.node-exporter.enabled }}
+{{- if .Values.nodeexporter.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,7 +11,7 @@ spec:
     - name: http
       port: 9100
       protocol: TCP
-  type: {{ .Values.node-exporter.service.type }}
+  type: {{ .Values.nodeexporter.service.type }}
   selector:
     app: node-exporter
 {{- end}}
