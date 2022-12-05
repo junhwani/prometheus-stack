@@ -18,9 +18,10 @@ spec:
         - name: prometheus
           image: {{ .Values.prometheus.image.name }}:{{ .Values.prometheus.image.tag }}
           args:
-            - "--config.file=/etc/prometheus/prometheus.yml"
-            - "--storage.tsdb.path=/prometheus/"
-            - "--web.enable-lifecycle"
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus/
+            - --web.enable-lifecycle
+            - --storage.tsdb.retention.time={{ .Values.prometheus.retention }}
           ports:
             - containerPort: 9090
           resources:

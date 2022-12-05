@@ -111,6 +111,7 @@ prometheus:
     enabled: false
     size: 100Gi
     storageClassName: default
+  retention: 3d
 
   service:
     type: NodePort
